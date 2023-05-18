@@ -41,8 +41,13 @@ io.on("connection", function (socket) {
 
   socket.on("message", (message) => {
     console.log(message);
-    io.emit("message-server", `${socket.id.substr(0, 2)} said ${message}`);
+
+    // this part to only emit the message to the respective socket id
+    socket.emit("message-server", `${socket.id.substr(0, 2)} said ${message}`);
+
     if (parseInt(message) === dict[socket.id]) {
+      
+      // this part to emit messaeg to ALL socket id
       io.emit("message-server", `${socket.id.substr(0, 2)} won!`);
       
       io.close(() => {

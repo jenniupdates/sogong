@@ -61,3 +61,4 @@ Game page
 - timer showing round duration
 - leaderboard panel
 - show solution if can’t solve after round 30
+- result panel showing current result correct incorrect wrong

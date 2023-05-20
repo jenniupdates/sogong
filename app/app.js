@@ -9,9 +9,6 @@ document.querySelector("button").onclick = () => {
   const text = document.querySelector("input").value;
   socket.emit("message", text);
   document.querySelector("input").value = "";
-  const el = document.createElement("li");
-  el.innerHTML = "You said: " + text;
-  document.querySelector("ul").appendChild(el);
 };
 
 // press enter to submit answer

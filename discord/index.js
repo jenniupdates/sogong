@@ -27,6 +27,7 @@ client.on('interactionCreate', (interaction) => {
 
     if (interaction.commandName === "start") {
         interaction.reply("Starting game...\n- 🟢 means that the number is in the right place \n- ⚠️ means that the number exists but in the wrong place \n- ❌ means that the number does not exist at all \n Use command \`/input <number>\` to test a number");
+        // userid: [generatedNumber, numTurns]
         dict[interaction.user.id] = [Mastermind.generateRandomNumber(),0];
         console.log("Generated number: ", dict[interaction.user.id][0]);
     }
@@ -35,8 +36,8 @@ client.on('interactionCreate', (interaction) => {
         if (interaction.user.id in dict) {
             let userInput = interaction.options.get('input-number');
             dict[interaction.user.id][1] += 1
-            console.log(`Generated number: ${dict[interaction.user.id]}, User input: ${userInput.value}`)
-            let result = Mastermind.checkAnswer(userInput.value, dict[interaction.user.id]);
+            console.log(`Generated number: ${dict[interaction.user.id][0]}, User input: ${userInput.value}`)
+            let result = Mastermind.checkAnswer(userInput.value, dict[interaction.user.id][0]);
             if (result["🟢"] == 3) {
                 interaction.reply(`Turn ${dict[interaction.user.id][1]}: Your input is: ${userInput.value}\n ${JSON.stringify(result)}\n YOU WIN, GAME ENDS. YOU CAN START ANOTHER VIA COMMAND \`/start\``);
                 dict = {};

@@ -1,18 +1,28 @@
 import dotenv from 'dotenv';
 dotenv.config()
 
-import { REST, Routes } from 'discord.js';
+import { REST, Routes, ApplicationCommandOptionType } from 'discord.js';
 
 const commands = [
     {
-        name: 'startGame',
+        name: 'start',
         description: "Start Sogong Mastermind Game",
     },
+    {
+        name: 'input',
+        description: "Mastermind Game User Input",
+        options: [
+            {
+                name: "input-number",
+                description: "the input number", 
+                type: ApplicationCommandOptionType.Number,
+                required: true,
+            },
+        ],
+    }
 ];
 
-const rest = new REST({
-    version: '10'
-}).setToken(process.env.TOKEN);
+const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
 
 (async () => {
     try {
@@ -21,9 +31,7 @@ const rest = new REST({
             Routes.applicationGuildCommands(
                 process.env.CLIENT_ID, 
                 process.env.GUILD_ID
-            ), {
-                body: commands
-            }
+            ), { body: commands }
         )
         console.log("Slash commands regsitered successfully");
     } catch (error) {

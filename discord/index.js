@@ -51,20 +51,23 @@ client.on('interactionCreate', (interaction) => {
     }
 })
 
-client.on("messageCreate", async (message) => {
-    console.log("Content: ", message.content);
-    let msg = {};
-    msg.id = message.id;
-    msg.guildid = message.guildId;
-    msg.content = message.content;
-    msg.creator = message.author.id;
-    console.log(msg);
 
-    if (!message?.author.bot) {
-        // message.author.send(`Echo ${msg.content}`);
-        message.reply(`Echo ${msg.content}`)
-    }
-}); 
+// use this function to find out guildid and other details
+// client.on("messageCreate", async (message) => {
+//     console.log("Content: ", message.content);
+//     let msg = {};
+//     msg.id = message.id;
+//     msg.guildid = message.guildId;
+//     msg.content = message.content;
+//     msg.creator = message.author.id;
+//     console.log(msg);
+
+//     if (!message?.author.bot) {
+//         // message.author.send(`Echo ${msg.content}`);
+//         message.reply(`Echo ${msg.content}`)
+//     }
+// }); 
+
 
 // Create a slash command builder
 // const startGame = new SlashCommandBuilder()

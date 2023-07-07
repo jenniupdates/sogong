@@ -1,7 +1,7 @@
 # sogong
 Maplestory's Sogong Mastermind Game (discord bot)
 
-## Run it
+## Run the app
 
 ```
 cd server
@@ -42,6 +42,17 @@ disconnect the last socket
   });
 ```
 
+## Run the discord bot
+1. change guildid to the discord server you want the bot to run in
+2. update .env's guildid
+3. run `node commands.js` to insert the bot commands
+4. upload your files to the bot hosting provider e.g cybrancee
+5. host the discord bot on the provider platform and start
+6. you should be able to see that the bot is online and use its functions (/start, /input <number>)
+
+> running locally: `npm run dev` for nodemon packager
+
+## Bot details
 Rounds
 - last 30s
 - optional for input

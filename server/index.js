@@ -1,8 +1,10 @@
 const express = require("express");
 const session = require("express-session");
-
 const socket = require("socket.io");
 const sharedSession = require("express-socket.io-session");
+
+const RedisStore = require("connect-redis").default
+const redis = require("redis");
 
 // App setup
 const PORT = 8080;
@@ -17,8 +19,20 @@ app.use((req, res, next) => {
   next();
 });
 
+// Redis session store
+// let RedisStore = connectRedis(session);
+const redisClient = redis.createClient({
+  host: "127.0.0.1",
+  port: 6379
+});
+
+// Verify redis client connection
+redisClient.connect().catch(console.error);
+
+
 // Session middleware
 const sessionMiddleware = session({
+  store: new RedisStore({ client: redisClient }),
   secret: "your-secret-key",
   resave: false,
   saveUninitialized: true,
@@ -38,30 +52,17 @@ const io = socket(server, {
   },
 });
 
-// Dictionary to store socket ID : user (session)
-var socketUserDict = {};
+var socketSessionDict = {}
 
-// Dictionary to store socket ID : random game number generated
+// socketid : random number generated for mastermind game
 var gameDict = {};
 
-function hasUniqueDigits(number) {
-  let digits = new Set(number.toString().split(''));
-  return digits.size === 3;
-}
-
-function getRandomNumber(socketid) {
-  let number;
-  do {
-    number = Math.floor(Math.random() * 900) + 100;
-  } while (!hasUniqueDigits(number));
-  dict[socketid] = number;
-}
-
-// Handle socket connections
+// Use shared session middleware for Socket.IO
 io.use(sharedSession(sessionMiddleware, { autoSave: true }));
 
 // Handle socket connections
 io.on("connection", function (socket) {
+
   // Check if the socket has a user session
   if (socket.handshake.session && socket.handshake.session.user) {
     const user = socket.handshake.session.user;
@@ -70,6 +71,7 @@ io.on("connection", function (socket) {
     socketUserDict[socket.id] = user;
 
     console.log("User reconnected, userid: ", socket.handshake.session.user);
+
   } else {
     console.log("A new user is connected, socket id: ", socket.id);
 
@@ -130,9 +132,3 @@ function generateUserId() {
   // Generate a random user ID
   return Math.random().toString(36).substr(2, 8);
 }
-
-
-// sample route
-// app.get("/user", (req, res) => {
-//   res.send("<h1>Hello World</h1>");
-// })

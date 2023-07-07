@@ -48,7 +48,7 @@ disconnect the last socket
 3. run `node commands.js` to insert the bot commands
 4. upload your files to the bot hosting provider e.g cybrancee
 5. host the discord bot on the provider platform and start
-6. you should be able to see that the bot is online and use its functions (/start, /input <number>)
+6. you should be able to see that the bot is online and use its functions (/start, /input number)
 
 > running locally: `npm run dev` for nodemon packager
 

@@ -39,11 +39,11 @@ client.on('interactionCreate', (interaction) => {
             console.log(`Generated number: ${dict[interaction.user.id][0]}, User input: ${userInput.value}`)
             let result = Mastermind.checkAnswer(userInput.value, dict[interaction.user.id][0]);
             if (result["🟢"] == 3) {
-                interaction.reply(`Turn ${dict[interaction.user.id][1]}: Your input is: ${userInput.value}\n ${JSON.stringify(result)}\n YOU WIN, GAME ENDS. YOU CAN START ANOTHER VIA COMMAND \`/start\``);
+                interaction.reply(`Turn #${dict[interaction.user.id][1]}: Your input is: ${userInput.value}\n ${JSON.stringify(result)}\n YOU WIN, GAME ENDS. YOU CAN START ANOTHER VIA COMMAND \`/start\``);
                 dict = {};
             }
             else {
-                interaction.reply(`Your input is: ${userInput.value}\n ${JSON.stringify(result)}\n Wrong... Try Again...`);
+                interaction.reply(`Turn #${dict[interaction.user.id][1]}: Your input is: ${userInput.value}\n ${JSON.stringify(result)}\n Wrong... Try Again...`);
             }
 
         } else {

@@ -1,3 +1,4 @@
 /server/node_modules
 /discord/node_modules
 /discord/.env
+.DS_Store

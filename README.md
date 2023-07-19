@@ -1,9 +1,9 @@
 # sogong
 Maplestory's Sogong Mastermind Game (discord bot)
-> note that currently only Discord Bot is up and running
+> note that currently only Discord Bot is up and running, 
 > web app is still in the midst of development
 
-## Discord Bot
+## Discord Bot (@Sogong#4644)
 **@Sogong#4644**
 - dm me @yinshanz if you want to add the bot to your server
 - or you can dm the bot directly and play the game

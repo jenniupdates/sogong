@@ -15,7 +15,7 @@ const commands = [
             {
                 name: "input-number",
                 description: "the input number", 
-                type: ApplicationCommandOptionType.Number,
+                type: ApplicationCommandOptionType.String,
                 required: true,
             },
         ],

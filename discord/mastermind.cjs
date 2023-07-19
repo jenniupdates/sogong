@@ -15,21 +15,21 @@ function hasUniqueDigits(number) {
 // console.log(randomNumber);
 
 function checkAnswer(input, number) {
-    let digits = new Set(input.toString().split(''));
+    let digits = new Set(input.split(''));
     if (digits.size != 3) {
         return ("\`You either have entered too many digits or they are not unique\`")
     } 
 
-    var inputString = input.toString();
+    // var inputString = input.toString();
     var numberString = number.toString();
 
     var res = {"🟢":0, "⚠️":0, "❌":0};
 
     for (var i = 0; i < 3; i++){
-        // console.log(inputString[i], numberString[i]);
-        if (inputString[i] == numberString[i]) {
+        // console.log(input[i], numberString[i]);
+        if (input[i] == numberString[i]) {
             res["🟢"] += 1;
-        } else if(numberString.includes(inputString[i])) {
+        } else if(numberString.includes(input[i])) {
             res["⚠️"] += 1;
         } else {
             res["❌"] += 1;

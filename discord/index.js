@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config()
-import { Client, GatewayIntentBits, GatewayVersion } from 'discord.js';
+import { Client, GatewayIntentBits, GatewayVersion, bold, italic, underscore, inlineCode } from 'discord.js';
 import { SlashCommandBuilder } from '@discordjs/builders';
 import * as Mastermind from "./mastermind.cjs";
 
@@ -26,7 +26,7 @@ client.on('interactionCreate', (interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
     if (interaction.commandName === "start") {
-        interaction.reply("Starting game...\n- 🟢 means that the number is in the right place \n- ⚠️ means that the number exists but in the wrong place \n- ❌ means that the number does not exist at all \n Use command \`/input <number>\` to test a number");
+        interaction.reply(`${bold("Game is starting...")}\n\n- 🟢 means that the number is in the right place \n- ⚠️ means that the number exists but in the wrong place \n- ❌ means that the number does not exist at all \n- Do note that \'0\' can also be one of the digits \n\n Use command ${inlineCode("/input <number>")} to test a number`);
         // userid: [generatedNumber, numTurns]
         dict[interaction.user.id] = [Mastermind.generateRandomNumber(),0];
         console.log("Generated number: ", dict[interaction.user.id][0]);
@@ -39,11 +39,11 @@ client.on('interactionCreate', (interaction) => {
             console.log(`Generated number: ${dict[interaction.user.id][0]}, User input: ${userInput.value}`)
             let result = Mastermind.checkAnswer(userInput.value, dict[interaction.user.id][0]);
             if (result["🟢"] == 3) {
-                interaction.reply(`Turn #${dict[interaction.user.id][1]}: Your input is: ${userInput.value}\n ${JSON.stringify(result)}\n YOU WIN, GAME ENDS. YOU CAN START ANOTHER VIA COMMAND \`/start\``);
+                interaction.reply(`${bold(`Turn #${dict[interaction.user.id][1]}`)}\n Your input is: ${underscore(userInput.value)}\n ${JSON.stringify(result)}\n\n ${bold("YOU WIN!")}\n Game has ended, you can start another using ${inlineCode("/start")}`);
                 dict = {};
             }
             else {
-                interaction.reply(`Turn #${dict[interaction.user.id][1]}: Your input is: ${userInput.value}\n ${JSON.stringify(result)}\n Wrong... Try Again...`);
+                interaction.reply(`${bold(`Turn #${dict[interaction.user.id][1]}`)}\n Your input is: ${underscore(userInput.value)}\n ${JSON.stringify(result)}\n\n ${bold("WRONG...")} Try Again...`);
             }
 
         } else {

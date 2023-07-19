@@ -1,8 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config()
 import { Client, GatewayIntentBits, GatewayVersion, bold, italic, underscore, inlineCode } from 'discord.js';
-import { SlashCommandBuilder } from '@discordjs/builders';
+// import { SlashCommandBuilder } from '@discordjs/builders';
 import * as Mastermind from "./mastermind.cjs";
+import * as Commands from './commands.js';
 
 const client = new Client({
     intents: [
@@ -18,9 +19,15 @@ let dict = {};
 
 client.login(process.env.TOKEN);
 
-client.on("ready", (client) => {
-    console.log(`✅ ${client.user.tag} aka ${client.user.username} is online !!!`);
-})
+client.on('ready', async (client) => {
+    try {
+      await Commands.register(client);
+      console.log(`✅ ${client.user.tag} aka ${client.user.username} is online !!!`);
+    } catch (error) {
+      console.log(`There was an error: ${error}`);
+    }
+});
+
 
 client.on('interactionCreate', (interaction) => {
     if (!interaction.isChatInputCommand()) return;
@@ -29,14 +36,14 @@ client.on('interactionCreate', (interaction) => {
         interaction.reply(`${bold("Game is starting...")}\n\n- 🟢 means that the number is in the right place \n- ⚠️ means that the number exists but in the wrong place \n- ❌ means that the number does not exist at all \n- Do note that \'0\' can also be one of the digits \n\n Use command ${inlineCode("/input <number>")} to test a number`);
         // userid: [generatedNumber, numTurns]
         dict[interaction.user.id] = [Mastermind.generateRandomNumber(),0];
-        console.log("Generated number: ", dict[interaction.user.id][0]);
+        console.log(`Generated number for ID ${interaction.user.id}: `, dict[interaction.user.id][0]);
     }
 
     if (interaction.commandName === "input") {
         if (interaction.user.id in dict) {
             let userInput = interaction.options.get('input-number');
             dict[interaction.user.id][1] += 1
-            console.log(`Generated number: ${dict[interaction.user.id][0]}, User input: ${userInput.value}`)
+            console.log(`Generated number for ID ${interaction.user.id}: ${dict[interaction.user.id][0]}, User input: ${userInput.value}`)
             let result = Mastermind.checkAnswer(userInput.value, dict[interaction.user.id][0]);
             if (result["🟢"] == 3) {
                 interaction.reply(`${bold(`Turn #${dict[interaction.user.id][1]}`)}\n Your input is: ${underscore(userInput.value)}\n ${JSON.stringify(result)}\n\n ${bold("YOU WIN!")}\n Game has ended, you can start another using ${inlineCode("/start")}`);

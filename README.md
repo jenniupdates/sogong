@@ -5,7 +5,7 @@ Maplestory's Sogong Mastermind Game (discord bot)
 
 ## Discord Bot (@Sogong#4644)
 **@Sogong#4644**
-- dm me @yinshanz if you want to add the bot to your server
+- create an issue or DM me if you want to add the bot to your server
 - or you can dm the bot directly and play the game
 
 ### Running the discord bot (local dev)

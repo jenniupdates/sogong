@@ -13,8 +13,10 @@ Maplestory's Sogong Mastermind Game (discord bot)
 2. `npm run dev` to run project with nodemon
 3. bot should be up and running (view terminal for output log)
 
+### Sneak peeks
+![discord bot](/images/sogongExample.png?raw=true "discord bot")
 
-## Running the web app
+## The Web App (ongoing)
 
 ```
 cd server

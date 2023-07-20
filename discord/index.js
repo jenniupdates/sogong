@@ -5,6 +5,23 @@ import { Client, GatewayIntentBits, GatewayVersion, bold, italic, underscore, in
 import * as Mastermind from "./mastermind.cjs";
 import * as Commands from './commands.js';
 
+// for log output
+import fs from 'fs';
+import path from 'path';
+
+const logFilePath = new URL('logs.txt', import.meta.url);
+const logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+const originalConsoleLog = console.log;
+console.log = function (message) {
+    const formattedMessage = `${new Date().toISOString()} - ${message}`;
+    logStream.write(`${formattedMessage}\n`);
+    originalConsoleLog(formattedMessage);
+};
+
+process.on('exit', () => {
+    logStream.end();
+});
+
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds,
@@ -36,7 +53,7 @@ client.on('interactionCreate', (interaction) => {
         interaction.reply(`${bold("Game is starting...")}\n\n- 🟢 means that the number is in the right place \n- ⚠️ means that the number exists but in the wrong place \n- ❌ means that the number does not exist at all \n- Do note that \'0\' can also be one of the digits \n\n Use command ${inlineCode("/input <number>")} to test a number`);
         // userid: [generatedNumber, numTurns]
         dict[interaction.user.id] = [Mastermind.generateRandomNumber(),0];
-        console.log(`Generated number for ID ${interaction.user.id}: `, dict[interaction.user.id][0]);
+        console.log(`Generated number for ID ${interaction.user.id}: ${dict[interaction.user.id][0]}`);
     }
 
     if (interaction.commandName === "input") {

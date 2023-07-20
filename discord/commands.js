@@ -24,7 +24,7 @@ const commands = [
 
 // const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
 
-// to register slash commands for a specific server (ristonia sucks) only
+// to register slash commands for a specific server only
 // (async () => {
 //     try {
 //         console.log("Registering slash commands...");
@@ -40,22 +40,7 @@ const commands = [
 //     }
 // })();
 
-// to register slash commands for DMs
-// (async () => {
-//     try {
-//         console.log("Registering slash commands...");
-//         await rest.put(
-//             Routes.applicationCommands(
-//                 process.env.CLIENT_ID, 
-//             ), { body: commands }
-//         )
-//         console.log("Slash commands regsitered successfully");
-//     } catch (error) {
-//         console.log(`There was an error registering slash commands: ${error}`);
-//     }
-// })();
-
-// to register slash commands for both
+// to register slash commands for both DM and server
 export async function register(client) {
     try {
         console.log('Registering slash commands...');

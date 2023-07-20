@@ -94,7 +94,7 @@ client.on('interactionCreate', (interaction) => {
 // }); 
 
 
-// Create a slash command builder
+// Create a slash command builder here (instead of commands.js)
 // const startGame = new SlashCommandBuilder()
 //                     .setName('startSogong')
 //                     .setDescription('start Sogong Mastermind Game')

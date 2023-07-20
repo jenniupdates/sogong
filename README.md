@@ -10,8 +10,9 @@ Maplestory's Sogong Mastermind Game (discord bot)
 
 ### Running the discord bot (local dev)
 1. enter discord directory `cd discord`
-2. `npm run dev` to run project with nodemon
-3. bot should be up and running (view terminal for output log)
+2. install node modules `npm i`
+3. `npm run dev` to run project with nodemon
+4. bot should be up and running (view terminal for output log)
 
 ### Sneak peeks
 ![discord bot](/images/sogongExample.png?raw=true "discord bot")
